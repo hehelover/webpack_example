@@ -1,11 +1,11 @@
 # webpack_example
 
-## ¿ìËÙ¿ªÊ¼
-
-- °²×°ÒÀÀµ
-  + npm install
-- ¿ªÊ¼¿ª·¢»·¾³
-  + npm run develop
-- ¿ªÊ¼ÏîÄ¿·¢²¼
-  + npm run publish
-
+## å¿«é€Ÿå¼€å§‹
+- å®‰è£…ä¾èµ–
+  + `npm  install`
+- å¼€å§‹å¼€å‘ç¯å¢ƒ
+  + `npm  run develop`
+- é¡¹ç›®å‘å¸ƒ
+  + `npm  run publish`
+- gulpå’Œwebpacké›†æˆ
+  + `npm run  deploy`
