@@ -2,6 +2,8 @@
  * Created by zlzho on 2017/3/7.
  */
 var path = require('path');
+// 自动打开浏览器插件
+var OpenBrowserPlugin = require('open-browser-webpack-plugin');
 
 module.exports = {
     // 选择一个入口文件
@@ -48,5 +50,8 @@ module.exports = {
                 loader: 'url-loader?limit=25000&name=img/[name].[ext]'  //如果在加载器后面加参数就用？
             }
         ]
-    }
+    },
+    plugins: [
+        new OpenBrowserPlugin({url: 'http://localhost:8080/', browser: 'chrome'})
+    ]
 };
