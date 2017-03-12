@@ -2,56 +2,67 @@
  * Created by zlzho on 2017/3/7.
  */
 var path = require('path');
-// ×Ô¶¯´ò¿ªä¯ÀÀÆ÷²å¼ş
+// è‡ªåŠ¨æ‰“å¼€æµè§ˆå™¨æ’ä»¶
 var OpenBrowserPlugin = require('open-browser-webpack-plugin');
 
 module.exports = {
-    // Ñ¡ÔñÒ»¸öÈë¿ÚÎÄ¼ş
+    // é€‰æ‹©ä¸€ä¸ªå…¥å£æ–‡ä»¶
     entry: path.resolve(__dirname, 'src/js/app.js'),
     //entry: [
     //    'webpack/hot/dev-server',
     //    'webpack-dev-server/client?http://localhost:8080',
     //    path.resolve(__dirname, 'src/js/app.js')
     //],
-    // Êä³öÎÄ¼şÎ»ÖÃ
+    // è¾“å‡ºæ–‡ä»¶ä½ç½®
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js',
     },
     module: {
-        // ÅäÖÃ¼ÓÔØÆ÷£¬¼ÓÔØÆ÷ÊÇÔÚwebpackÕæÕı±àÒëÖ®Ç°ÏÈÖ´ĞĞÒ»Ğ©Ô¤´¦Àí²Ù×÷
+        // é…ç½®åŠ è½½å™¨ï¼ŒåŠ è½½å™¨æ˜¯åœ¨webpackçœŸæ­£ç¼–è¯‘ä¹‹å‰å…ˆæ‰§è¡Œä¸€äº›é¢„å¤„ç†æ“ä½œ
         loaders: [
-            // ´¦ÀíjsxºÍes6Óï·¨µÄ
+            // å¤„ç†jsxå’Œes6è¯­æ³•çš„
             {
-                test: /\.jsx?$/,   // ÓÃÕıÔòÀ´Æ¥ÅäÎÄ¼şÂ·¾¶Õâ¶ÎÒâË¼ÊÇÆ¥Åäjs»òÕßjsx
-                loader: 'babel-loader',   // ¼ÓÔØÄ£¿é¡°babel¡±ÊÇ¡°babel-loader¡±µÄËõĞ´
+                test: /\.jsx?$/,   // ç”¨æ­£åˆ™æ¥åŒ¹é…æ–‡ä»¶è·¯å¾„è¿™æ®µæ„æ€æ˜¯åŒ¹é…jsæˆ–è€…jsx
+                loader: 'babel-loader',   // åŠ è½½æ¨¡å—â€œbabelâ€æ˜¯â€œbabel-loaderâ€çš„ç¼©å†™
                 query: {
-                    presets: ['es2015', 'react']
+                    presets: ['es2015', 'react', 'stage-0', 'stage-1', 'stage-2', 'stage-3']
                 }
             },
-            // ´¦ÀíjsÖĞÒıÓÃµÄcss
+            // å¤„ç†jsä¸­å¼•ç”¨çš„css
             {
-                test: /\.css$/,   // Ö»Æ¥Åä.cssÎÄ¼ş
-                loader: 'style-loader!css-loader'   //  ¼ÓÔØÁ½¸öloaderÎÄ¼şµÄ¼ÓÔØÆ÷£¨Èç¹ûÍ¬Ê±ÓÃÁ½¸ö¼ÓÔØÆ÷£¬ÖĞ¼äÓÃÌ¾ºÅ¸ô¿ª£¬ÇÒÖ´ĞĞË³ĞòÊÇ´ÓÓÒÍù×ó£©
+                test: /\.css$/,   // åªåŒ¹é….cssæ–‡ä»¶
+                loader: 'style-loader!css-loader'   //  åŠ è½½ä¸¤ä¸ªloaderæ–‡ä»¶çš„åŠ è½½å™¨ï¼ˆå¦‚æœåŒæ—¶ç”¨ä¸¤ä¸ªåŠ è½½å™¨ï¼Œä¸­é—´ç”¨å¹å·éš”å¼€ï¼Œä¸”æ‰§è¡Œé¡ºåºæ˜¯ä»å³å¾€å·¦ï¼‰
             },
-            // ´¦ÀísassÎÄ¼ş
+            // å¤„ç†sassæ–‡ä»¶
             {
                 test: /\.scss$/,
                 loader: 'style-loader!css-loader!sass-loader'
             },
-            // ´¦ÀíÍ¼Æ¬¼ÓÔØÆ÷
+            // å¤„ç†å›¾ç‰‡åŠ è½½å™¨
             {
                 test: /\.(png|jpg)$/,
-                // Èç¹ûÍ¼Æ¬µÄ´óĞ¡Ğ¡ÓÚlimitµÄÏŞÖÆ´óĞ¡£¬ÄÇwebpack¾Í»á°ÑÍ¼Æ¬»¯Îªbase64µÄ×Ö·û´®Ìí¼ÓÔÚjsÎÄ¼şÖĞ£¬·ñÔò¾ÍÊÇÍ¼Æ¬Â·¾¶
-                // µ¥Î»ÊÇbit   1b = 8bit 1kb = 1024b ~3kb
-                // ÓÃbase64×Ö·û´®¾ÍÊÇÎªÁË¼õÉÙÍøÂçÇëÇó£¬µ«ÊÇÍ¼Æ¬ÊÇÓĞ´óĞ¡ÏŞÖÆµÄ£¬Ò»°ãÊÇĞ¡ÓÚ3kbµÄ²Å´¦ÀíÎªbase64
-                // jpgºÍbase64µÄ×Ö·û´®±¾ÖÊ¶¼ÊÇ010101µÄ»úÆ÷Âë£¬ËùÒÔ¿ÉÒÔÏà»¥×ª»»
-                // nameÊôĞÔ¿ÉÒÔ¿ØÖÆ´óÓÚ3kbµÄÍ¼Æ¬µÄÊä³öÎ»ÖÃ
-                loader: 'url-loader?limit=25000&name=img/[name].[ext]'  //Èç¹ûÔÚ¼ÓÔØÆ÷ºóÃæ¼Ó²ÎÊı¾ÍÓÃ£¿
+                // å¦‚æœå›¾ç‰‡çš„å¤§å°å°äºlimitçš„é™åˆ¶å¤§å°ï¼Œé‚£webpackå°±ä¼šæŠŠå›¾ç‰‡åŒ–ä¸ºbase64çš„å­—ç¬¦ä¸²æ·»åŠ åœ¨jsæ–‡ä»¶ä¸­ï¼Œå¦åˆ™å°±æ˜¯å›¾ç‰‡è·¯å¾„
+                // å•ä½æ˜¯bit   1b = 8bit 1kb = 1024b ~3kb
+                // ç”¨base64å­—ç¬¦ä¸²å°±æ˜¯ä¸ºäº†å‡å°‘ç½‘ç»œè¯·æ±‚ï¼Œä½†æ˜¯å›¾ç‰‡æ˜¯æœ‰å¤§å°é™åˆ¶çš„ï¼Œä¸€èˆ¬æ˜¯å°äº3kbçš„æ‰å¤„ç†ä¸ºbase64
+                // jpgå’Œbase64çš„å­—ç¬¦ä¸²æœ¬è´¨éƒ½æ˜¯010101çš„æœºå™¨ç ï¼Œæ‰€ä»¥å¯ä»¥ç›¸äº’è½¬æ¢
+                // nameå±æ€§å¯ä»¥æ§åˆ¶å¤§äº3kbçš„å›¾ç‰‡çš„è¾“å‡ºä½ç½®
+                loader: 'url-loader?limit=25000&name=img/[name].[ext]'  //å¦‚æœåœ¨åŠ è½½å™¨åé¢åŠ å‚æ•°å°±ç”¨ï¼Ÿ
             }
         ]
     },
+    resolve: {
+        // è‡ªåŠ¨æ‰©å±•æ–‡ä»¶åç¼€åï¼Œæ„å‘³ç€æˆ‘ä»¬requireæ¨¡å—å¯ä»¥çœç•¥ä¸å†™åç¼€å
+        // extensions ç¬¬ä¸€ä¸ªæ˜¯ç©ºå­—ç¬¦ä¸²å¯¹ç”¨ä¸éœ€è¦åç¼€åçš„æƒ…å†µ
+        extensions: ['.js', '.json', '.scss', '.jsx'],
+        // æ¨¡å—åˆ«åå®šä¹‰ï¼Œæ–¹ä¾¿åç»­ç›´æ¥å¼•ç”¨åˆ«åï¼Œæ— é¡»å†™é•¿é•¿çš„åœ°å€ï¼Œåç»­ç›´æ¥ require('AppStore')å³å¯
+        alias: {
+            AppStore: 'js/stores/AppStores.js',
+            ActionType: 'js/actions/ActionType.js',
+            AppAction: 'js/actions/AppAction.js'
+        }
+    },
     plugins: [
-        new OpenBrowserPlugin({url: 'http://localhost:8080/', browser: 'chrome'})
+        // new OpenBrowserPlugin({url: 'http://localhost:8080/', browser: 'chrome'})
     ]
 };

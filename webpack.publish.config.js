@@ -3,40 +3,40 @@
  */
 var path = require('path');
 var webpack = require('webpack');
-// ÌáÈ¡cssÎÄ¼şµÄ²å¼ş
+// æå–cssæ–‡ä»¶çš„æ’ä»¶
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-// ×Ô¶¯Éú³Éindex.htmlÒ³Ãæ²å¼ş
+// è‡ªåŠ¨ç”Ÿæˆindex.htmlé¡µé¢æ’ä»¶
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    // Ñ¡ÔñÒ»¸öÈë¿ÚÎÄ¼ş
+    // é€‰æ‹©ä¸€ä¸ªå…¥å£æ–‡ä»¶
     // entry: path.resolve(__dirname, 'src/js/app.js'),
-    // °ÑÈë¿ÚÎÄ¼ş±ä³É¶ÔÏóÄ£Ê½
+    // æŠŠå…¥å£æ–‡ä»¶å˜æˆå¯¹è±¡æ¨¡å¼
     entry: {
         app: path.resolve(__dirname, 'src/js/app.js'),
-        // ·ÖÀëµÚÈı·½ÒıÓÃ£¬±ÈÈçvar react = require('react)
+        // åˆ†ç¦»ç¬¬ä¸‰æ–¹å¼•ç”¨ï¼Œæ¯”å¦‚var react = require('react)
         vendors: ['react', 'react-dom']
     },
-    // Êä³öÎÄ¼şÎ»ÖÃ
+    // è¾“å‡ºæ–‡ä»¶ä½ç½®
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js',
     },
     module: {
-        // ÅäÖÃ¼ÓÔØÆ÷£¬¼ÓÔØÆ÷ÊÇÔÚwebpackÕæÕı±àÒëÖ®Ç°ÏÈÖ´ĞĞÒ»Ğ©Ô¤´¦Àí²Ù×÷
+        // é…ç½®åŠ è½½å™¨ï¼ŒåŠ è½½å™¨æ˜¯åœ¨webpackçœŸæ­£ç¼–è¯‘ä¹‹å‰å…ˆæ‰§è¡Œä¸€äº›é¢„å¤„ç†æ“ä½œ
         loaders: [
-            // ´¦ÀíjsxºÍes6Óï·¨µÄ
+            // å¤„ç†jsxå’Œes6è¯­æ³•çš„
             {
-                test: /\.jsx?$/,   // ÓÃÕıÔòÀ´Æ¥ÅäÎÄ¼şÂ·¾¶Õâ¶ÎÒâË¼ÊÇÆ¥Åäjs»òÕßjsx
-                loader: 'babel-loader',   // ¼ÓÔØÄ£¿é¡°babel¡±ÊÇ¡°babel-loader¡±µÄËõĞ´
+                test: /\.jsx?$/,   // ç”¨æ­£åˆ™æ¥åŒ¹é…æ–‡ä»¶è·¯å¾„è¿™æ®µæ„æ€æ˜¯åŒ¹é…jsæˆ–è€…jsx
+                loader: 'babel-loader',   // åŠ è½½æ¨¡å—â€œbabelâ€æ˜¯â€œbabel-loaderâ€çš„ç¼©å†™
                 query: {
-                    presets: ['es2015', 'react']
+                    presets: ['es2015', 'react', 'react-router', 'stage-0', 'stage-1', 'stage-2', 'stage-3']
                 }
             },
-            // ´¦ÀíjsÖĞÒıÓÃµÄcss
+            // å¤„ç†jsä¸­å¼•ç”¨çš„css
             {
-                test: /\.css$/,   // Ö»Æ¥Åä.cssÎÄ¼ş
-                // loader: 'style-loader!css-loader'   //  ¼ÓÔØÁ½¸öloaderÎÄ¼şµÄ¼ÓÔØÆ÷£¨Èç¹ûÍ¬Ê±ÓÃÁ½¸ö¼ÓÔØÆ÷£¬ÖĞ¼äÓÃÌ¾ºÅ¸ô¿ª£¬ÇÒÖ´ĞĞË³ĞòÊÇ´ÓÓÒÍù×ó£©
+                test: /\.css$/,   // åªåŒ¹é….cssæ–‡ä»¶
+                // loader: 'style-loader!css-loader'   //  åŠ è½½ä¸¤ä¸ªloaderæ–‡ä»¶çš„åŠ è½½å™¨ï¼ˆå¦‚æœåŒæ—¶ç”¨ä¸¤ä¸ªåŠ è½½å™¨ï¼Œä¸­é—´ç”¨å¹å·éš”å¼€ï¼Œä¸”æ‰§è¡Œé¡ºåºæ˜¯ä»å³å¾€å·¦ï¼‰
                 loader: ExtractTextPlugin.extract(
                     {
                         fallback: "style-loader",
@@ -44,11 +44,11 @@ module.exports = {
                     }
                 )
             },
-            // ´¦ÀísassÎÄ¼ş
+            // å¤„ç†sassæ–‡ä»¶
             {
                 test: /\.scss$/,
                 // loader: 'style-loader!css-loader!sass-loader'
-                // css-loaderºÍsass.logaderÎÄ¼ş±ØĞëÁ¬ÔÚÒ»ÆğĞ´²Å¿ÉÒÔ³éÀëSASSÎÄ¼ş
+                // css-loaderå’Œsass.logaderæ–‡ä»¶å¿…é¡»è¿åœ¨ä¸€èµ·å†™æ‰å¯ä»¥æŠ½ç¦»SASSæ–‡ä»¶
                 loader: ExtractTextPlugin.extract(
                     {
                         fallback: "style-loader",
@@ -56,50 +56,50 @@ module.exports = {
                     }
                 )
             },
-            // ´¦ÀíÍ¼Æ¬¼ÓÔØÆ÷
+            // å¤„ç†å›¾ç‰‡åŠ è½½å™¨
             {
                 test: /\.(png|jpg)$/,
-                // Èç¹ûÍ¼Æ¬µÄ´óĞ¡Ğ¡ÓÚlimitµÄÏŞÖÆ´óĞ¡£¬ÄÇwebpack¾Í»á°ÑÍ¼Æ¬»¯Îªbase64µÄ×Ö·û´®Ìí¼ÓÔÚjsÎÄ¼şÖĞ£¬·ñÔò¾ÍÊÇÍ¼Æ¬Â·¾¶
-                // µ¥Î»ÊÇbit   1b = 8bit 1kb = 1024b ~3kb
-                // ÓÃbase64×Ö·û´®¾ÍÊÇÎªÁË¼õÉÙÍøÂçÇëÇó£¬µ«ÊÇÍ¼Æ¬ÊÇÓĞ´óĞ¡ÏŞÖÆµÄ£¬Ò»°ãÊÇĞ¡ÓÚ3kbµÄ²Å´¦ÀíÎªbase64
-                // jpgºÍbase64µÄ×Ö·û´®±¾ÖÊ¶¼ÊÇ010101µÄ»úÆ÷Âë£¬ËùÒÔ¿ÉÒÔÏà»¥×ª»»
-                // nameÊôĞÔ¿ÉÒÔ¿ØÖÆ´óÓÚ3kbµÄÍ¼Æ¬µÄÊä³öÎ»ÖÃ
-                loader: 'url-loader?limit=25000&name=img/[name].[ext]'  //Èç¹ûÔÚ¼ÓÔØÆ÷ºóÃæ¼Ó²ÎÊı¾ÍÓÃ£¿
+                // å¦‚æœå›¾ç‰‡çš„å¤§å°å°äºlimitçš„é™åˆ¶å¤§å°ï¼Œé‚£webpackå°±ä¼šæŠŠå›¾ç‰‡åŒ–ä¸ºbase64çš„å­—ç¬¦ä¸²æ·»åŠ åœ¨jsæ–‡ä»¶ä¸­ï¼Œå¦åˆ™å°±æ˜¯å›¾ç‰‡è·¯å¾„
+                // å•ä½æ˜¯bit   1b = 8bit 1kb = 1024b ~3kb
+                // ç”¨base64å­—ç¬¦ä¸²å°±æ˜¯ä¸ºäº†å‡å°‘ç½‘ç»œè¯·æ±‚ï¼Œä½†æ˜¯å›¾ç‰‡æ˜¯æœ‰å¤§å°é™åˆ¶çš„ï¼Œä¸€èˆ¬æ˜¯å°äº3kbçš„æ‰å¤„ç†ä¸ºbase64
+                // jpgå’Œbase64çš„å­—ç¬¦ä¸²æœ¬è´¨éƒ½æ˜¯010101çš„æœºå™¨ç ï¼Œæ‰€ä»¥å¯ä»¥ç›¸äº’è½¬æ¢
+                // nameå±æ€§å¯ä»¥æ§åˆ¶å¤§äº3kbçš„å›¾ç‰‡çš„è¾“å‡ºä½ç½®
+                loader: 'url-loader?limit=25000&name=img/[name].[ext]'  //å¦‚æœåœ¨åŠ è½½å™¨åé¢åŠ å‚æ•°å°±ç”¨ï¼Ÿ
             }
         ]
     },
     resolve: {
-        // ×Ô¶¯À©Õ¹ÎÄ¼şºó×ºÃû£¬ÒâÎ¶×ÅÎÒÃÇrequireÄ£¿é¿ÉÒÔÊ¡ÂÔ²»Ğ´ºó×ºÃû
-        // extensions µÚÒ»¸öÊÇ¿Õ×Ö·û´®¶ÔÓÃ²»ĞèÒªºó×ºÃûµÄÇé¿ö
+        // è‡ªåŠ¨æ‰©å±•æ–‡ä»¶åç¼€åï¼Œæ„å‘³ç€æˆ‘ä»¬requireæ¨¡å—å¯ä»¥çœç•¥ä¸å†™åç¼€å
+        // extensions ç¬¬ä¸€ä¸ªæ˜¯ç©ºå­—ç¬¦ä¸²å¯¹ç”¨ä¸éœ€è¦åç¼€åçš„æƒ…å†µ
         extensions: ['', '.js', '.json', '.scss', '.jsx'],
-        // Ä£¿é±ğÃû¶¨Òå£¬·½±ãºóĞøÖ±½ÓÒıÓÃ±ğÃû£¬ÎŞĞëĞ´³¤³¤µÄµØÖ·£¬ºóĞøÖ±½Ó require('AppStore')¼´¿É
+        // æ¨¡å—åˆ«åå®šä¹‰ï¼Œæ–¹ä¾¿åç»­ç›´æ¥å¼•ç”¨åˆ«åï¼Œæ— é¡»å†™é•¿é•¿çš„åœ°å€ï¼Œåç»­ç›´æ¥ require('AppStore')å³å¯
         alias: {
             AppStore: 'js/stores/AppStores.js',
             ActionType: 'js/actions/ActionType.js',
             AppAction: 'js/actions/AppAction.js'
         }
     },
-    // ÔÚÕâ¸öÊôĞÔÀïÃæ¶¨ÒåµÄ°üÊÇ²»»á±»´ò±¬½øbundle.jsÎÄ¼şÖĞµÄ£¬Èç¹ûÄãÒªÓÃÕâ¸öÊôĞÔ£¬±ğÍüÁËÔÚindex.htmlÖĞÒıÈëcdn
+    // åœ¨è¿™ä¸ªå±æ€§é‡Œé¢å®šä¹‰çš„åŒ…æ˜¯ä¸ä¼šè¢«æ‰“çˆ†è¿›bundle.jsæ–‡ä»¶ä¸­çš„ï¼Œå¦‚æœä½ è¦ç”¨è¿™ä¸ªå±æ€§ï¼Œåˆ«å¿˜äº†åœ¨index.htmlä¸­å¼•å…¥cdn
     /*enternals: {
-        // ÅäÖÃÁËÕâ¸öÊôĞÔÖ®ºó react ºÍ react-dom ÕâĞ©µÚÈı·½µÄ°ü¶¼²»»á±»¹¹½¨½øjsÖĞ£¬ÄÇÃ´ÎÒÃÇ¾ÍĞèÒªÍ¨¹ıcdn½øĞĞÎÄ¼şµÄÒıÓÃ
-        // Ç°±ßÕâ¸öÃû³ÆÊÇÔÚÏîÄ¿ÖĞÒıÓÃµÄ£¬Ïàµ±ÓÚimport React from 'react1'  ÖĞµÄ  react
-        'react1': 'react',
-        'react-dom1': 'react-dom',
-        '$1': 'jQuery'
-    },*/
+     // é…ç½®äº†è¿™ä¸ªå±æ€§ä¹‹å react å’Œ react-dom è¿™äº›ç¬¬ä¸‰æ–¹çš„åŒ…éƒ½ä¸ä¼šè¢«æ„å»ºè¿›jsä¸­ï¼Œé‚£ä¹ˆæˆ‘ä»¬å°±éœ€è¦é€šè¿‡cdnè¿›è¡Œæ–‡ä»¶çš„å¼•ç”¨
+     // å‰è¾¹è¿™ä¸ªåç§°æ˜¯åœ¨é¡¹ç›®ä¸­å¼•ç”¨çš„ï¼Œç›¸å½“äºimport React from 'react1'  ä¸­çš„  react
+     'react1': 'react',
+     'react-dom1': 'react-dom',
+     '$1': 'jQuery'
+     },*/
     plugins: [
-        // ·ÖÀëµÚÈı·½Ó¦ÓÃ²å¼ş,nameÊôĞÔ»á×Ô¶¯Ö»ÏëentryÖĞµÄvendrosÊôĞÔ£¬filenameÊôĞÔÖĞµÄÎÄ¼ş»á×Ô¶¯¹¹½¨µ½outputÖĞµÄpathÊôĞÔÏÂÃæ
+        // åˆ†ç¦»ç¬¬ä¸‰æ–¹åº”ç”¨æ’ä»¶,nameå±æ€§ä¼šè‡ªåŠ¨åªæƒ³entryä¸­çš„vendroså±æ€§ï¼Œfilenameå±æ€§ä¸­çš„æ–‡ä»¶ä¼šè‡ªåŠ¨æ„å»ºåˆ°outputä¸­çš„pathå±æ€§ä¸‹é¢
         new webpack.optimize.CommonsChunkPlugin({name: 'vendors', filename: 'vendors.js'}),
-        // ÓÃwenpackÑ¹Ëõ´úÂë£¬¿ÉÒÔºöÂÔ´úÂëÖĞµÄ¾¯¸æ
+        // ç”¨wenpackå‹ç¼©ä»£ç ï¼Œå¯ä»¥å¿½ç•¥ä»£ç ä¸­çš„è­¦å‘Š
         new webpack.optimize.UglifyJsPlugin({
             compress: {
                 warnings: false
             }
         }),
-        // ¿ÉÒÔĞÂ½¨¶à¸ö³éÀëÑùÊ½µÄÎÄ¼ş
+        // å¯ä»¥æ–°å»ºå¤šä¸ªæŠ½ç¦»æ ·å¼çš„æ–‡ä»¶
         new ExtractTextPlugin('app.css'),
         new webpack.DefinePlugin({
-            // È¥µôreactÖĞµÄ¾¯¸æ£¬react»á×Ô¼ºÅĞ¶Ï
+            // å»æ‰reactä¸­çš„è­¦å‘Šï¼Œreactä¼šè‡ªå·±åˆ¤æ–­
             'process.env': {
                 NODE_ENV: '"production"'
             }

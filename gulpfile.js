@@ -7,11 +7,13 @@ var del = require('del');
 var gulpSequence = require('gulp-sequence');
 // 引入webpack的本地模块
 var webpack = require("webpack");
+
 // 引入wbpack的配置文件
 var webpackConfig = require("./webpack.publish.config.js");
 
 gulp.task('default', ['sequence'], function () {
     console.log("项目构建成功");
+	
 });
 
 // 流程控制
