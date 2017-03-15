@@ -1,0 +1,12 @@
+h1 {
+    color: red;
+}
+
+img{
+      height: 200px;
+      width: 200px;
+      background-image: url(img/demo.jpg);
+  }@charset "UTF-8";
+h1 {
+  font-size: 100px;
+  /* _base.sass是部分文件，不会生成单独的css   这种注释内容会出现在生成的css文件中 */ }
